@@ -1,12 +1,24 @@
+import Link from "next/link"
+
 type ButtonProps = {
     children: React.ReactNode;
+    href?: string;
     className?: string;
 }
 
-export default function Button({ children, className }: ButtonProps) {
+export default function Button({ children, href, className }: ButtonProps) {
+    const buttonStyle = `py-4 bg-app-white text-app-bg text-center rounded-[10px] shadow-button border-0 hover-scale-105 ${className ? className : ""}`
     return (
-        <div className={`py-4 bg-app-white text-app-bg text-center rounded-[10px] shadow-button hover-scale-105 ${className ? className : ""}`}>
-            {children}
-        </div>
+        <>
+            {href ? (
+                <Link href={href} className={buttonStyle}>
+                    {children}
+                </Link>
+            ) : (
+                <button className={buttonStyle}>
+                    {children}
+                </button>
+            )}
+        </>
     )
 }
