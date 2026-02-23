@@ -11,6 +11,7 @@ type ActivityRegisterButtonProps = {
 
 export default async function ActivityRegisterButton({ activity, className }: ActivityRegisterButtonProps) {
     const user = await fetchCurrentUser()
+    if (!user) return
     console.log("user:", user)
 
     if (user.age > activity.maxAge || user.age < activity.minAge) return
@@ -26,7 +27,7 @@ export default async function ActivityRegisterButton({ activity, className }: Ac
             action={!isRegistered ? addUserToActivityWithId : removeUserFromActivityWithId}
             noValidate
         >
-            <Button className={`px-22 absolute bottom-7 right-7 bg-app-bg! text-app-white! ${className ? className : ""}`}>
+            <Button className={`px-22 absolute bottom-7 right-7 ${className ? className : ""}`} color="dark">
                 {!isRegistered ? "Tilmeld" : "Forlad"}
             </Button>
         </Form>

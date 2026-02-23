@@ -5,7 +5,7 @@ export type User = {
     firstname: string;
     lastname: string;
     age: number;
-    role: string;
+    role: "instructor" | "default";
     createdAt: string;
     updatedAt: string;
     roster: {
@@ -37,4 +37,8 @@ export type Activity = {
         users: any[]
     }
     users: User[] | []
+}
+
+export interface UserProfile extends User {
+    activities: Activity[];
 }

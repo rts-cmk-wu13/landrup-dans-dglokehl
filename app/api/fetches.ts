@@ -1,8 +1,9 @@
 import { getToken, getUserId } from "@/utils/cookies"
+import type { User, UserProfile } from "./types"
 
-export async function fetchDefault(url: string) {
+export async function fetchDefault(url: string, revalidate?: number) {
     try {
-        const res = await fetch(url, { next: { revalidate: 3600 } })
+        const res = await fetch(url, { next: { revalidate: revalidate ? revalidate : 3600 } })
         if (!res.ok) throw new Error(res.statusText)
         return res.json()
     }
@@ -11,7 +12,7 @@ export async function fetchDefault(url: string) {
     }
 }
 
-export async function fetchCurrentUser() {
+export async function fetchCurrentUser(revalidate?: number) {
     const token = await getToken()
     const userId = await getUserId()
 
@@ -20,7 +21,11 @@ export async function fetchCurrentUser() {
         headers: {
             "Authorization": `Bearer ${token}`
         },
+        next: { revalidate: revalidate ? revalidate : 0 },
     });
     if (!res.ok) return
-    return res.json();
+
+    const data: UserProfile = await res.json()
+    if (!data) return
+    return data;
 }
