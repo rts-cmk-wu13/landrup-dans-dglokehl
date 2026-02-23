@@ -38,7 +38,7 @@ export default async function HomePage() {
                     <h2 className="text-4xl">Nyhedsbrev</h2>
                     <p className="mt-5 text-lg">Få direkte besked når vi har sæsonstart eller afholder arrangementer.</p>
                     <form action="" className="mt-4 w-full flex items-center gap-4">
-                        <input type="email" name="email" id="email" placeholder="Email" className="px-3 h-12 w-full bg-app-white text-lg text-app-black placeholder:text-app-grey-light focus:outline-0" />
+                        <input type="email" name="email" id="email" placeholder="Email" className="form-input" />
                         <Button className="px-3">Tilmeld</Button>
                     </form>
                 </section>
@@ -47,7 +47,7 @@ export default async function HomePage() {
 
                 <section>
                     <h2 className="mb-8 text-4xl">Kontakt os</h2>
-                    <input type="text" placeholder="Navn" className="px-3 h-12 w-full bg-app-white text-lg text-app-black placeholder:text-app-grey-light focus:outline-0" />
+                    <input type="text" placeholder="Navn" className="form-input" />
                 </section>
 
                 <address className="space-y-5 not-italic text-center">

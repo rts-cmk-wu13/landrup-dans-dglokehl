@@ -1,0 +1,24 @@
+// "use client"
+
+import Form from "next/form";
+import Button from "@/components/Button"
+import { authLogin } from "@/app/api/auth";
+
+type LoginFormProps = {
+    children?: React.ReactNode;
+    className?: string;
+}
+
+export default function LoginForm({ className }: LoginFormProps) {
+    return (
+        <Form
+            action={authLogin}
+            noValidate
+            className={`flex flex-col items-center gap-5 ${className ? className : ""}`}
+        >
+            <input type="text" name="username" id="username" placeholder="Brugernavn" className="form-input" />
+            <input type="password" name="password" id="password" placeholder="Adgangskode" className="form-input" />
+            <Button className="px-22">Log ind</Button>
+        </Form>
+    )
+}

@@ -37,6 +37,10 @@
     @apply h-[calc(100dvh-var(--height-footer))];
 }
 
+@utility form-input {
+    @apply px-3 h-12 w-full bg-app-white text-lg text-app-black placeholder:text-app-grey-light focus:outline-0;
+}
+
 
 /* --- HOVER UTILITIES --- */
 
