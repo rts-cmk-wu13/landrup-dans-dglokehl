@@ -24,6 +24,9 @@ export async function authLogin(formData: FormData) {
 
     const cookieStore = await cookies()
     cookieStore.set("LD_TOKEN", data.token, { maxAge: data.validUntil })
+    cookieStore.set("LD_USER_ID", data.userId, { maxAge: data.validUntil })
+
+    redirect("/")
 }
 
 

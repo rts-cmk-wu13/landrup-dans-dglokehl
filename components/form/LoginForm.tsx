@@ -1,7 +1,7 @@
 // "use client"
 
 import Form from "next/form";
-import Button from "@/components/Button"
+import Button from "../buttons/Button";
 import { authLogin } from "@/app/api/auth";
 
 type LoginFormProps = {

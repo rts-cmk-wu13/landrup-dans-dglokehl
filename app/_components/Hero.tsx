@@ -1,7 +1,7 @@
 import Image from "next/image"
 import HeroImg from "@/assets/heroimg.jpg"
 import Logo from "@/components/Logo";
-import Button from "@/components/Button"
+import Button from "@/components/buttons/Button";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
 import { getToken } from "@/utils/cookies";
 

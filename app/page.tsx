@@ -1,13 +1,13 @@
 import Image from "next/image"
 
 import Main from "@/components/layout/Main"
-import Button from "@/components/Button"
+import Button from "@/components/buttons/Button"
 
 import Hero from "./_components/Hero"
 import { holdtyper } from "./_components/holdtyper"
 import TestimonialGallery from "./_components/TestimonialGallery"
 
-import fetchDefault from "@/utils/fetchHelper"
+import { fetchDefault } from "./api/fetches"
 
 export default async function HomePage() {
     const testimonials = await fetchDefault("http://localhost:4000/api/v1/testimonials")

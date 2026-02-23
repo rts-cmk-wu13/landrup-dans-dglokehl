@@ -1,6 +1,6 @@
 import Main from "@/components/layout/Main"
 import SearchBar from "./_components/SearchBar"
-import fetchDefault from "@/utils/fetchHelper";
+import { fetchDefault } from "../api/fetches";
 import ActivityCard from "./_components/ActivityCard";
 
 export default async function ActivitiesPage() {
