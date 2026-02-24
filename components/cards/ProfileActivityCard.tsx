@@ -1,5 +1,6 @@
 import type { Activity } from "@/app/api/types";
 import Button from "../buttons/Button"
+import { LuSquarePen, LuTrash } from "react-icons/lu";
 
 type ProfileActivityCardProps = {
     activity: Activity;
@@ -14,7 +15,29 @@ export default function ProfileActivityCard({ activity, role, className }: Profi
                 <h3 className="text-2xl font-medium">{activity.name}</h3>
                 <p className="text-lg"><span className="capitalize">{activity.weekday}</span> kl. {activity.time}</p>
             </div>
-            <Button href={`/activities/${activity.id}`} className="py-2.5! w-38" color="dark">Vis hold</Button>
+            {role !== "instructor" && <Button href={`/activities/${activity.id}`} className="py-2.5! w-38" color="dark">Vis hold</Button>}
+
+            {role === "instructor" && (
+                <>
+                    <div className="flex justify-between">
+                        <p>Max. deltagere: {activity.maxParticipants}</p>
+                        <p>Tilmeldte: {activity.users.length}</p>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                        <Button href={`/profile/activities/${activity.id}/participants`} className="py-2.5! w-38" color="dark">Deltagerliste</Button>
+
+                        <div className="flex gap-3">
+                            <Button href={`/profile/activities/${activity.id}/edit`} className="size-11 *:size-6 flex items-center justify-center" color="dark">
+                                <LuSquarePen />
+                            </Button>
+                            <Button href={`/profile/activities/${activity.id}/delete`} className="size-11 *:size-6 flex items-center justify-center" color="dark">
+                                <LuTrash />
+                            </Button>
+                        </div>
+                    </div>
+                </>
+            )}
         </article>
     )
 }

@@ -5,7 +5,6 @@ import Button from "../buttons/Button";
 import { authLogin } from "@/app/api/auth";
 
 type LoginFormProps = {
-    children?: React.ReactNode;
     className?: string;
 }
 

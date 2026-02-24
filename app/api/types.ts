@@ -34,7 +34,6 @@ export type Activity = {
         url: string;
         createdAt: string;
         updatedAt: string;
-        users: any[]
     }
     users: User[] | []
 }

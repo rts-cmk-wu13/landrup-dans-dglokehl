@@ -1,5 +1,5 @@
 import Link from "next/link"
-import LoginForm from "@/components/form/LoginForm"
+import LoginForm from "@/components/forms/LoginForm"
 
 export default async function LoginPage() {
     return (
