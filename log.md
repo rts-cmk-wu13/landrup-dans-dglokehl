@@ -11,15 +11,15 @@ Husk, at du ikke må arbejde på din opgave mellem kl. 16:00 og kl. 8:00.
 Morgen - ~12:30 (committede først 13:54)
 Eftermiddag - 15:32
 
-## Dag 2
+## Dag 2 - 23/2
 
 Morgen - 8:45
 Eftermiddag - 15:55
 
-## Dag 3
+## Dag 3 - 24/2
 
 Morgen - 9:02
-Eftermiddag - (tidspunkt)
+Eftermiddag - 15:57
 
 ## Dag 4
 

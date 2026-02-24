@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import * as z from "zod";
 import { getToken, getUserId } from "@/utils/cookies";
 import { ActivitySchema } from "./schemas";
 
@@ -52,7 +53,12 @@ export async function removeUserFromActivity(activityId: number) {
 
 // --- CREATE/EDIT ACTIVITY --- //
 
-export async function createActivity(formData: FormData) {
+export type FormState = {
+  errors?: any
+  message?: string;
+}
+
+export async function createActivity(initialState: FormState, formData: FormData): Promise<FormState> {
     console.log("createActivity called")
 
     const result = ActivitySchema.safeParse({
@@ -62,13 +68,12 @@ export async function createActivity(formData: FormData) {
         time: formData.get("time"),
         minAge: Number(formData.get("minAge")),
         maxAge: Number(formData.get("maxAge")),
-        instructorId: Number(formData.get("instructorId")),
+        instructorId: formData.get("instructorId"),
         maxParticipants: Number(formData.get("maxParticipants")),
         file: formData.get("file"),
     })
     if (!result.success) {
-        console.log("result.error:", result.error)
-        return
+        return { errors: z.flattenError(result.error) }
     }
     // console.log("result.data:", result.data)
 
@@ -79,7 +84,7 @@ export async function createActivity(formData: FormData) {
     form.append("time", result.data.time)
     form.append("minAge", String(result.data.minAge))
     form.append("maxAge", String(result.data.maxAge))
-    form.append("instructorId", String(result.data.instructorId))
+    form.append("instructorId", result.data.instructorId)
     form.append("maxParticipants", String(result.data.maxParticipants))
     form.append("file", result.data.file)
 
@@ -95,14 +100,12 @@ export async function createActivity(formData: FormData) {
         body: form
     });
     // console.log("res:", res)
-    if (!res.ok) return
+    if (!res.ok) return { message: res.statusText }
 
-    // const data = await res.json();
-    // console.log("data:", data)
     redirect("/profile")
 }
 
-export async function editActivity(formData: FormData) {
+export async function editActivity(initialState: FormState, formData: FormData): Promise<FormState> {
     console.log("editActivity called")
 
     const result = ActivitySchema.safeParse({
@@ -112,13 +115,12 @@ export async function editActivity(formData: FormData) {
         time: formData.get("time"),
         minAge: Number(formData.get("minAge")),
         maxAge: Number(formData.get("maxAge")),
-        instructorId: Number(formData.get("instructorId")),
+        instructorId: formData.get("instructorId"),
         maxParticipants: Number(formData.get("maxParticipants")),
         file: formData.get("file"),
     })
     if (!result.success) {
-        console.log("result.error:", result.error)
-        return
+        return { errors: z.treeifyError(result.error) }
     }
     // console.log("result.data:", result.data)
 
@@ -129,7 +131,7 @@ export async function editActivity(formData: FormData) {
     form.append("time", result.data.time)
     form.append("minAge", String(result.data.minAge))
     form.append("maxAge", String(result.data.maxAge))
-    form.append("instructorId", String(result.data.instructorId))
+    form.append("instructorId", result.data.instructorId)
     form.append("maxParticipants", String(result.data.maxParticipants))
     form.append("file", result.data.file)
 
@@ -145,10 +147,9 @@ export async function editActivity(formData: FormData) {
         body: form
     });
     console.log("res:", res)
-    if (!res.ok) return
+    if (!res.ok) return { message: res.statusText }
 
-    const data = await res.json();
-    console.log("data:", data)
+    redirect("/profile")
 }
 
 export async function deleteActivity(activityId: number) {
@@ -162,7 +163,7 @@ export async function deleteActivity(activityId: number) {
             "Authorization": `Bearer ${token}`
         },
     });
-    if (!res.ok) return
+    if (!res.ok) return 
 
     redirect("/profile")
 }
