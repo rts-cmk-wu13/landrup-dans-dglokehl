@@ -6,6 +6,10 @@ import UserActivitiesSection from "@/components/sections/UserActivitiesSection";
 import InstructorActivitiesSection from "@/components/sections/InstructorActivitiesSection";
 import { fetchDefault, fetchCurrentUser } from "../api/fetches"
 
+export const metadata = {
+    title: "Min Profil"
+}
+
 export default async function ProfilePage() {
     const user = await fetchCurrentUser(600)
     if (!user) redirect("/login")

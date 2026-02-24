@@ -1,6 +1,10 @@
 import Link from "next/link"
 import LoginForm from "@/components/forms/LoginForm"
 
+export const metadata = {
+    title: "Log ind"
+}
+
 export default async function LoginPage() {
     return (
         <section className="space-y-8">

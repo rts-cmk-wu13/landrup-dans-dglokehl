@@ -1,6 +1,10 @@
 import Link from "next/link"
 import SignupForm from "@/components/forms/SignupForm"
 
+export const metadata = {
+    title: "Opret bruger"
+}
+
 export default async function SignupPage() {
     return (
         <section className="space-y-8">

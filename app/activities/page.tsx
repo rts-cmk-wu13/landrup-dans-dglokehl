@@ -3,6 +3,10 @@ import SearchBar from "./_components/SearchBar"
 import { fetchDefault } from "../api/fetches";
 import ActivityCard from "./_components/ActivityCard";
 
+export const metadata = {
+    title: "Aktiviteter"
+}
+
 export default async function ActivitiesPage() {
     const activities = await fetchDefault("http://localhost:4000/api/v1/activities");
     console.log("activities:", activities)

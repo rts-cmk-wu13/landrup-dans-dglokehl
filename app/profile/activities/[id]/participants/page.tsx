@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 	const activity: Activity = await fetchDefault(`http://localhost:4000/api/v1/activities/${id}`)
 
 	return {
-		title: `Participants | ${activity.name}`
+		title: `Deltagere: ${activity.name}`
 	}
 }
 

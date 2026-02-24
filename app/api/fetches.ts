@@ -1,5 +1,5 @@
 import { getToken, getUserId } from "@/utils/cookies"
-import type { User, UserProfile } from "./types"
+import type { UserProfile } from "./types"
 
 export async function fetchDefault(url: string, revalidate?: number) {
     try {

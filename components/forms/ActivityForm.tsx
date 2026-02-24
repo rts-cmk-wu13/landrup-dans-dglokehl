@@ -1,5 +1,6 @@
 import Form from "next/form";
 import type { Activity } from "@/app/api/types";
+import { createActivity, editActivity } from "@/app/api/actions";
 import Button from "../buttons/Button";
 
 type ActivityFormProps = {
@@ -10,7 +11,7 @@ type ActivityFormProps = {
 export default function ActivityForm({ edit, className }: ActivityFormProps) {
     return (
         <Form
-            action={edit ? "" : ""}
+            action={edit ? editActivity : createActivity}
             noValidate
             className={`grid grid-cols-2 gap-5 ${className ? className : ""}`}
         >
@@ -88,11 +89,15 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                 <p className="text-lg">Billede:</p>
                 <input
                     type="file"
-                    name="asset" id="asset"
+                    name="file" id="file"
                     accept="image/*"
                     className="w-full file:mr-2.5 file:py-1 file:px-2.5 file:bg-app-white file:text-app-black file:rounded-sm file:hover-75"
                 />
             </div>
+
+            {edit && (
+                <input type="hidden" name="activityId" id="activityId" value={edit.id} />
+            )}
 
             <Button className="px-18 justify-self-center col-span-2">
                 {edit ? "Ret hold" : "Opret hold"}
