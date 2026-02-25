@@ -26,7 +26,7 @@ export default function ContactForm({ className }: ContactFormProps) {
     }
 
     const [state, formAction, pending] = useActionState(sendContactMessage, initialState)
-    console.log("state:", state)
+    // console.log("state:", state)
 
     return (
          <>

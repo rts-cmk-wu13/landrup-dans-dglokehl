@@ -24,7 +24,7 @@ export default function NewsletterForm({ className }: NewsletterFormProps) {
     }
 
     const [state, formAction, pending] = useActionState(registerNewsletter, initialState)
-    console.log("state:", state)
+    // console.log("state:", state)
 
     return (
         <>

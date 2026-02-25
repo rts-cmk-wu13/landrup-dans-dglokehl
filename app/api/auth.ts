@@ -7,7 +7,7 @@ import { LoginSchema, SignupSchema } from "./schemas";
 import type { FormState } from "./types";
 
 export async function authLogin(initialState: FormState, formData: FormData): Promise<FormState> {
-    console.log("authLogin called")
+    // console.log("authLogin called")
 
     const formObject = {
         username: formData.get("username"),
@@ -40,7 +40,7 @@ export async function authLogin(initialState: FormState, formData: FormData): Pr
     }
 
     const data = await res.json();
-    console.log("data:", data)
+    // console.log("data:", data)
 
     const cookieStore = await cookies()
     cookieStore.set("LD_TOKEN", data.token, { expires: data.validUntil })
@@ -52,7 +52,7 @@ export async function authLogin(initialState: FormState, formData: FormData): Pr
 
 
 export async function authSignup(initialState: FormState, formData: FormData): Promise<FormState> {
-    console.log("authSignup called")
+    // console.log("authSignup called")
 
     const formObject = {
         firstname: formData.get("firstname"),
@@ -86,7 +86,7 @@ export async function authSignup(initialState: FormState, formData: FormData): P
     }
 
     const data = await res.json();
-    console.log("data:", data)
+    // console.log("data:", data)
 
     redirect("/login")
 }

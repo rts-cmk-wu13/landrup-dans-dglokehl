@@ -20,10 +20,10 @@ export default async function ActivityParticipantsPage({ params }: { params: Pro
 
     const user = await fetchCurrentUser(600)
     if (!user) redirect("/login")
-    console.log("user:", user)
+    // console.log("user:", user)
 
     const activity: Activity = await fetchDefault(`http://localhost:4000/api/v1/activities/${id}`)
-    console.log("activity:", activity)
+    // console.log("activity:", activity)
 
     return (
         <>

@@ -32,7 +32,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
     }
 
     const [state, formAction, pending] = useActionState(edit ? editActivity : createActivity, initialState)
-    console.log("state:", state)
+    // console.log("state:", state)
 
     return (
         <Form

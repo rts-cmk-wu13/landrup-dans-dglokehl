@@ -19,7 +19,7 @@ export default async function ActivityDetailsPage({ params }: { params: Promise<
     const { id } = await params;
 
     const activity: Activity = await fetchDefault(`http://localhost:4000/api/v1/activities/${id}`);
-    console.log("activity:", activity)
+    // console.log("activity:", activity)
 
     const token = await getToken()
 
@@ -31,7 +31,7 @@ export default async function ActivityDetailsPage({ params }: { params: Promise<
             </div>
             <Main className="text-lg">
                 <h1 className="text-2xl font-medium">{activity.name}</h1>
-                <p>{formatMinMaxAges(activity.minAge, activity.maxAge)}</p>
+                <p>{formatMinMaxAges(activity.minAge, activity.maxAge)} <span className="mx-1">·</span> <span className="capitalize">{activity.weekday}</span> kl. {activity.time}</p>
                 <p className="mt-3">{activity.description}</p>
             </Main>
         </>

@@ -24,7 +24,7 @@ export default function LoginForm({ className }: LoginFormProps) {
     }
 
     const [state, formAction, pending] = useActionState(authLogin, initialState)
-    console.log("state:", state)
+    // console.log("state:", state)
 
     return (
         <Form

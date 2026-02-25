@@ -13,14 +13,14 @@ export const metadata = {
 export default async function ProfilePage() {
     const user = await fetchCurrentUser()
     if (!user) redirect("/login")
-    console.log("user:", user)
+    // console.log("user:", user)
 
     let instructorActivities: Activity[] | [] = []
     if (user.role === "instructor") {
         const activities: Activity[] = await fetchDefault("http://localhost:4000/api/v1/activities", 0)
         instructorActivities = activities.filter((activity) => activity.instructorId === user.id)
     }
-    console.log("instructorActivities:", instructorActivities)
+    // console.log("instructorActivities:", instructorActivities)
 
     return (
         <>

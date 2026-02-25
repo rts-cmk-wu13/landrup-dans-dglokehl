@@ -32,7 +32,7 @@ export default async function ActivityRegisterButton({ activity, className }: Ac
     }
 
     const isRegistered = user.activities.some((userActivity: Activity) => activity.id === userActivity.id)
-    console.log("isRegistered:", isRegistered)
+    // console.log("isRegistered:", isRegistered)
 
 
     let buttonText = "Tilmeld"

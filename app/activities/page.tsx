@@ -16,7 +16,7 @@ export default async function ActivitiesPage({ searchParams }: { searchParams: P
     const { q } = await searchParams;
 
     const activities: Activity[] = await fetchDefault("http://localhost:4000/api/v1/activities");
-    console.log("activities:", activities)
+    // console.log("activities:", activities)
 
 
     function filterActivitiesSearch(activity: Activity) {

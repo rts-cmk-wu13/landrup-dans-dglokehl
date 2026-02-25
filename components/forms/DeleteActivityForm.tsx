@@ -19,7 +19,7 @@ export default function DeleteActivityForm({ activity, className }: DeleteActivi
     }
 
     const [state, formAction, pending] = useActionState(deleteActivityWithId, initialState)
-    console.log("state:", state)
+    // console.log("state:", state)
 
     return (
         <Form

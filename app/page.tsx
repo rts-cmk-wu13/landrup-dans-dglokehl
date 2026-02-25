@@ -12,7 +12,7 @@ import TestimonialGallery from "./_components/TestimonialGallery"
 
 export default async function HomePage() {
     const testimonials = await fetchDefault("http://localhost:4000/api/v1/testimonials")
-    console.log("testimonials:", testimonials)
+    // console.log("testimonials:", testimonials)
 
     return (
         <>

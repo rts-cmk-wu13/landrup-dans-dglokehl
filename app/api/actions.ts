@@ -11,7 +11,7 @@ import type { FormState } from "./types";
 // --- NEWSLETTER --- //
 
 export async function registerNewsletter(initialState: FormState, formData: FormData): Promise<FormState> {
-    console.log("registerNewsletter called")
+    // console.log("registerNewsletter called")
 
     const formObject = {
         email: formData.get("email"),
@@ -41,7 +41,7 @@ export async function registerNewsletter(initialState: FormState, formData: Form
     }
 
     const data = await res.json();
-    console.log("data:", data)
+    // console.log("data:", data)
 
     return {
         message: "Tak for din tilmelding",
@@ -50,7 +50,9 @@ export async function registerNewsletter(initialState: FormState, formData: Form
                 email: []
             }
         },
-        inputs: initialState.inputs
+        inputs: {
+            email: "",
+        }
     }
 }
 
@@ -58,7 +60,7 @@ export async function registerNewsletter(initialState: FormState, formData: Form
 // --- NEWSLETTER --- //
 
 export async function sendContactMessage(initialState: FormState, formData: FormData): Promise<FormState> {
-    console.log("sendContactMessage called")
+    // console.log("sendContactMessage called")
 
     const formObject = {
         name: formData.get("name"),
@@ -90,7 +92,7 @@ export async function sendContactMessage(initialState: FormState, formData: Form
     }
 
     const data = await res.json();
-    console.log("data:", data)
+    // console.log("data:", data)
 
     return {
         message: "Tak for din besked",
@@ -99,7 +101,11 @@ export async function sendContactMessage(initialState: FormState, formData: Form
                 email: []
             }
         },
-        inputs: initialState.inputs
+        inputs: {
+            name: "",
+            email: "",
+            message: "",
+        }
     }
 }
 
@@ -108,11 +114,11 @@ export async function sendContactMessage(initialState: FormState, formData: Form
 // --- ADD/REMOVE USER FROM ACTIVITY --- //
 
 export async function addUserToActivity(activityId: number) {
-    console.log("addUserToActivity called")
+    // console.log("addUserToActivity called")
 
     const token = await getToken()
     const userId = await getUserId()
-    console.log(token, userId, activityId)
+    // console.log(token, userId, activityId)
 
     const res = await fetch(`http://localhost:4000/api/v1/users/${userId}/activities/${activityId}`, {
         method: "POST",
@@ -126,7 +132,7 @@ export async function addUserToActivity(activityId: number) {
 }
 
 export async function removeUserFromActivity(activityId: number) {
-    console.log("removeUserFromActivity called")
+    // console.log("removeUserFromActivity called")
 
     const token = await getToken()
     const userId = await getUserId()
@@ -148,7 +154,7 @@ export async function removeUserFromActivity(activityId: number) {
 // --- CREATE/EDIT ACTIVITY --- //
 
 export async function createActivity(initialState: FormState, formData: FormData): Promise<FormState> {
-    console.log("createActivity called")
+    // console.log("createActivity called")
 
     const formObject = {
         name: formData.get("name"),
@@ -203,7 +209,7 @@ export async function createActivity(initialState: FormState, formData: FormData
 }
 
 export async function editActivity(initialState: FormState, formData: FormData): Promise<FormState> {
-    console.log("editActivity called")
+    // console.log("editActivity called")
 
     const formObject = {
         name: formData.get("name"),
@@ -258,7 +264,7 @@ export async function editActivity(initialState: FormState, formData: FormData):
 }
 
 export async function deleteActivity(activityId: number, initialState: FormState): Promise<FormState> {
-    console.log("deleteActivity called")
+    // console.log("deleteActivity called")
 
     const token = await getToken()
 

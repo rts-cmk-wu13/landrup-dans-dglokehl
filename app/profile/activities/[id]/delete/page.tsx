@@ -17,7 +17,7 @@ export default async function ActivityDeletePage({ params }: { params: Promise<{
     const { id } = await params;
 
     const activity: Activity = await fetchDefault(`http://localhost:4000/api/v1/activities/${id}`, 0)
-    console.log("activity:", activity)
+    // console.log("activity:", activity)
 
     return (
         <Main className="pt-9 space-y-8">
