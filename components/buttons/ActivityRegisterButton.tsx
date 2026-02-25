@@ -2,6 +2,7 @@ import Form from "next/form";
 import type { Activity } from "@/app/api/types";
 import { addUserToActivity, removeUserFromActivity } from "@/app/api/actions";
 import { fetchCurrentUser } from "@/app/api/fetches";
+import { getCurrentWeekday } from "@/utils/helpers";
 import Button from "./Button";
 
 type ActivityRegisterButtonProps = {
@@ -21,6 +22,9 @@ export default async function ActivityRegisterButton({ activity, className }: Ac
     const isInstructor = user.id === activity.instructorId
 
     if (user.age > activity.maxAge || user.age < activity.minAge) {
+        if (!isInstructor) return
+    }
+    if (activity.weekday === getCurrentWeekday()) {
         if (!isInstructor) return
     }
     if (activity.users.length >= activity.maxParticipants) {

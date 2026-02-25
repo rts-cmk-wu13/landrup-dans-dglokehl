@@ -19,3 +19,13 @@ export async function getUserId() {
 
     return userId.value
 }
+
+export async function getUserRole() {
+    const cookieStore = await cookies()
+    if (!cookieStore.has("LD_USER_ROLE")) return
+
+    const userId = cookieStore.get("LD_USER_ROLE")
+    if (!userId) return
+
+    return userId.value
+}

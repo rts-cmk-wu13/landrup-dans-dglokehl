@@ -7,7 +7,6 @@ import { registerNewsletter } from "@/app/api/actions";
 import Button from "../buttons/Button";
 
 type NewsletterFormProps = {
-    children?: React.ReactNode;
     className?: string;
 }
 
@@ -44,6 +43,7 @@ export default function NewsletterForm({ className }: NewsletterFormProps) {
 
                 <Button className={`px-3 ${pending && "opacity-50 pointer-events-none"}`}>Tilmeld</Button>
             </Form>
+
             <p className={`mt-1 text-center ${state.errors.fieldErrors.email[0] ? "text-red-400" : "text-green-400"}`}>{state.message}</p>
         </>
     )

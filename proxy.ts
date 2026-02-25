@@ -1,9 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
-import { getToken } from "@/utils/cookies";
-import { fetchCurrentUser } from "./app/api/fetches";
+import { getToken, getUserRole } from "@/utils/cookies";
 
 export async function proxy(request: NextRequest) {
     const token = await getToken()
+    const userRole = await getUserRole()
 
     if (request.nextUrl.pathname.startsWith("/login") || request.nextUrl.pathname.startsWith("/signup")) {
         if (token) return NextResponse.redirect(new URL("/", request.url))
@@ -16,10 +16,10 @@ export async function proxy(request: NextRequest) {
     if (
         request.nextUrl.pathname.startsWith("/activities/new") ||
         (request.nextUrl.pathname.startsWith("/activities/") && request.nextUrl.pathname.endsWith("/edit")) ||
-        (request.nextUrl.pathname.startsWith("/activities/") && request.nextUrl.pathname.endsWith("/delete"))
+        (request.nextUrl.pathname.startsWith("/activities/") && request.nextUrl.pathname.endsWith("/delete")) ||
+        (request.nextUrl.pathname.startsWith("/activities/") && request.nextUrl.pathname.endsWith("/participants"))
     ) {
-        const user = await fetchCurrentUser()
-        if (!user) return
-        if (user.role !== "instructor") return NextResponse.redirect(new URL("/", request.url))
+        if (!token) return
+        if (userRole !== "instructor") return NextResponse.redirect(new URL("/", request.url))
     }
 }

@@ -2,8 +2,8 @@ import Image from "next/image"
 import { fetchDefault } from "./api/fetches"
 
 import Main from "@/components/layout/Main"
-import Button from "@/components/buttons/Button"
 import NewsletterForm from "@/components/forms/NewsletterForm"
+import ContactForm from "@/components/forms/ContactForm"
 
 import Hero from "./_components/Hero"
 import { holdtyper } from "./_components/holdtyper"
@@ -44,8 +44,8 @@ export default async function HomePage() {
                 {testimonials && <TestimonialGallery testimonials={testimonials} className="px-0!" />}
 
                 <section>
-                    <h2 className="mb-8 text-4xl">Kontakt os</h2>
-                    <input type="text" placeholder="Navn" className="form-input" />
+                    <h2 className="text-4xl">Kontakt os</h2>
+                    <ContactForm className="mt-5" />
                 </section>
 
                 <address className="space-y-5 not-italic text-center">

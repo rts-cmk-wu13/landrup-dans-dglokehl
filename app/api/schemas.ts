@@ -5,6 +5,13 @@ export const NewsletterSchema = z.object({
     email: z.email({ error: "Indtast en gyldig email" }),
 });
 
+export const ContactSchema = z.object({
+    name: z.string({ error: "Indtast dit navn" }).min(1, { error: "Indtast dit navn" }),
+    email: z.email({ error: "Indtast en gyldig email" }),
+    message: z.string({ error: "Indtast en besked" }).min(1, { error: "Indtast en besked" }),
+});
+
+
 export const LoginSchema = z.object({
     username: z.string({ error: "Indtast dit brugernavn" }).min(1, { error: "Indtast dit brugernavn" }),
     password: z.string({ error: "Indtast din adgangskode" }).min(1, { error: "Indtast din adgangskode" }),

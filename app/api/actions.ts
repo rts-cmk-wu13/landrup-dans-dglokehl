@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import * as z from "zod";
 import { getToken, getUserId } from "@/utils/cookies";
-import { ActivitySchema, NewsletterSchema } from "./schemas";
+import { ActivitySchema, NewsletterSchema, ContactSchema } from "./schemas";
 import type { FormState } from "./types";
 
 
@@ -14,7 +14,7 @@ export async function registerNewsletter(initialState: FormState, formData: Form
     console.log("registerNewsletter called")
 
     const formObject = {
-        email: formData.get("email")
+        email: formData.get("email"),
     }
 
     const result = NewsletterSchema.safeParse(formObject)
@@ -50,9 +50,56 @@ export async function registerNewsletter(initialState: FormState, formData: Form
                 email: []
             }
         },
-        inputs: {
-            email: "",
-        }
+        inputs: initialState.inputs
+    }
+}
+
+
+// --- NEWSLETTER --- //
+
+export async function sendContactMessage(initialState: FormState, formData: FormData): Promise<FormState> {
+    console.log("sendContactMessage called")
+
+    const formObject = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        message: formData.get("message"),
+    }
+
+    const result = ContactSchema.safeParse(formObject)
+    if (!result.success) return {
+        message: "",
+        errors: z.flattenError(result.error),
+        inputs: formObject,
+    }
+    // console.log("result.data:", result.data)
+
+    const res = await fetch("http://localhost:4000/api/v1/messages", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formObject)
+    });
+    if (!res.ok) return {
+        message: `${res.status}: ${res.statusText}`,
+        errors: {
+            fieldErrors: {}
+        },
+        inputs: formObject,
+    }
+
+    const data = await res.json();
+    console.log("data:", data)
+
+    return {
+        message: "Tak for din besked",
+        errors: {
+            fieldErrors: {
+                email: []
+            }
+        },
+        inputs: initialState.inputs
     }
 }
 

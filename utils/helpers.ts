@@ -5,3 +5,9 @@ export function formatMinMaxAges(minAge: number, maxAge: number) {
     }
     return `${minAge}-${maxAge} år`
 }
+
+export function getCurrentWeekday() {
+    const weekday = ["søndag", "mandag","tirsdag","onsdag","torsdag","fredag","lørdag"];
+    const date = new Date();
+    return weekday[date.getDay()]
+}

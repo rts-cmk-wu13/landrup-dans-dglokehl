@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation"
 import type { Activity } from "../api/types";
+import { fetchDefault, fetchCurrentUser } from "../api/fetches"
 import Main from "@/components/layout/Main"
 import ProfileHeader from "./_components/ProfileHeader";
 import UserActivitiesSection from "@/components/sections/UserActivitiesSection";
 import InstructorActivitiesSection from "@/components/sections/InstructorActivitiesSection";
-import { fetchDefault, fetchCurrentUser } from "../api/fetches"
 
 export const metadata = {
     title: "Min Profil"
