@@ -11,20 +11,27 @@ type ActivityFormProps = {
     edit?: Activity;
     className?: string;
 }
-const initialState: FormState = {
-    message: "",
-    errors: {
-        fieldErrors: {}
-    },
-    inputs: {}
-}
+
 export default function ActivityForm({ edit, className }: ActivityFormProps) {
+    const initialState: FormState = {
+        message: "",
+        errors: {
+            fieldErrors: {}
+        },
+        inputs: {
+            name: edit ? edit.name ? edit.name : "" : "",
+            description: edit ? edit.description ? edit.description : "" : "",
+            weekday: edit ? edit.weekday ? edit.weekday : "" : "",
+            time: edit ? edit.time ? edit.time : "" : "",
+            minAge: edit ? edit.minAge ? edit.minAge : "" : "",
+            maxAge: edit ? edit.maxAge ? edit.maxAge : "" : "",
+            instructorId: edit ? edit.instructorId ? edit.instructorId : "" : "",
+            maxParticipants: edit ? edit.maxParticipants ? edit.maxParticipants : "" : "",
+            file: "",
+        }
+    }
     const [state, formAction, pending] = useActionState(edit ? editActivity : createActivity, initialState)
     console.log("state:", state)
-
-    const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-    }
 
     return (
         <Form
@@ -37,7 +44,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                     type="text"
                     name="name" id="name"
                     placeholder="Holdnavn"
-                    defaultValue={edit ? edit.name : state.inputs.name ? state.inputs.name : ""}
+                    defaultValue={state.inputs.name ? state.inputs.name : ""}
                     className="form-input"
                 />
             </InputWrapper>
@@ -45,7 +52,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                 <textarea
                     name="description" id="description"
                     placeholder="Beskrivelse"
-                    defaultValue={edit ? edit.description : state.inputs.description ? state.inputs.description : ""}
+                    defaultValue={state.inputs.description ? state.inputs.description : ""}
                     className="form-input py-3 h-32 col-span-2 resize-none"
                 ></textarea>
             </InputWrapper>
@@ -54,7 +61,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
             <InputWrapper error={state.errors.fieldErrors.weekday ? state.errors.fieldErrors.weekday[0] : ""}>
                 <select
                     name="weekday" id="weekday"
-                    defaultValue={edit ? edit.weekday : state.inputs.weekday ? state.inputs.weekday : ""}
+                    defaultValue={state.inputs.weekday ? state.inputs.weekday : ""}
                     className="form-input"
                 >
                     <option value="" disabled>Ugedag</option>
@@ -72,7 +79,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                     type="text"
                     name="time" id="time"
                     placeholder="Tidspunkt"
-                    defaultValue={edit ? edit.time : state.inputs.time ? state.inputs.time : ""}
+                    defaultValue={state.inputs.time ? state.inputs.time : ""}
                     className="form-input"
                 />
             </InputWrapper>
@@ -82,7 +89,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                     type="number"
                     name="minAge" id="minAge"
                     placeholder="Alder (min.)"
-                    defaultValue={edit ? edit.minAge : state.inputs.minAge ? state.inputs.minAge : ""}
+                    defaultValue={state.inputs.minAge ? state.inputs.minAge : ""}
                     className="form-input"
                 />
             </InputWrapper>
@@ -91,7 +98,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                     type="number"
                     name="maxAge" id="maxAge"
                     placeholder="Alder (max.)"
-                    defaultValue={edit ? edit.maxAge : state.inputs.maxAge ? state.inputs.maxAge : ""}
+                    defaultValue={state.inputs.maxAge ? state.inputs.maxAge : ""}
                     className="form-input"
                 />
             </InputWrapper>
@@ -99,7 +106,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
             <InputWrapper error={state.errors.fieldErrors.instructorId ? state.errors.fieldErrors.instructorId[0] : ""}>
                 <select
                     name="instructorId" id="instructorId"
-                    defaultValue={edit ? edit.instructorId : state.inputs.instructorId ? state.inputs.instructorId : ""}
+                    defaultValue={state.inputs.instructorId ? state.inputs.instructorId : ""}
                     className="form-input"
                 >
                     <option value="" disabled>Instruktør</option>
@@ -114,7 +121,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                     type="number"
                     name="maxParticipants" id="maxParticipants"
                     placeholder="Deltagere (max.)"
-                    defaultValue={edit ? edit.maxParticipants : state.inputs.maxParticipants ? state.inputs.maxParticipants : ""}
+                    defaultValue={state.inputs.maxParticipants ? state.inputs.maxParticipants : ""}
                     className="form-input"
                 />
             </InputWrapper>
