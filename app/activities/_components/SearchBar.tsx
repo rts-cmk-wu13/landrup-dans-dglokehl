@@ -4,7 +4,6 @@ import { useState } from "react";
 import { LuSearch } from "react-icons/lu";
 
 type SearchBarProps = {
-    children?: React.ReactNode;
     className?: string;
 }
 

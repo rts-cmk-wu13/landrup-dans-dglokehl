@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import * as z from "zod";
 import { getToken, getUserId } from "@/utils/cookies";
 import { ActivitySchema } from "./schemas";
+import type { FormState } from "./types";
 
 // --- ADD/REMOVE USER FROM ACTIVITY --- //
 
@@ -22,10 +23,7 @@ export async function addUserToActivity(activityId: number) {
         },
     });
     if (!res.ok) return
-    console.log("res:", res)
 
-    // const data = await res.json();
-    // console.log("data:", data)
     revalidatePath("/")
 }
 
@@ -44,8 +42,6 @@ export async function removeUserFromActivity(activityId: number) {
     });
     if (!res.ok) return
 
-    // const data = await res.json();
-    // console.log("data:", data)
     revalidatePath("/")
 }
 
@@ -53,15 +49,8 @@ export async function removeUserFromActivity(activityId: number) {
 
 // --- CREATE/EDIT ACTIVITY --- //
 
-export type FormState = {
-  errors?: any
-  message?: string;
-  inputs?: any
-}
-
 export async function createActivity(initialState: FormState, formData: FormData): Promise<FormState> {
     console.log("createActivity called")
-    console.log("initialState:", initialState)
 
     const formObject = {
         name: formData.get("name"),
@@ -76,11 +65,9 @@ export async function createActivity(initialState: FormState, formData: FormData
     }
 
     const result = ActivitySchema.safeParse(formObject)
-    if (!result.success) {
-        return {
-            errors: z.flattenError(result.error),
-            inputs: formObject
-        }
+    if (!result.success) return {
+        errors: z.flattenError(result.error),
+        inputs: formObject,
     }
     // console.log("result.data:", result.data)
 
@@ -106,8 +93,13 @@ export async function createActivity(initialState: FormState, formData: FormData
         },
         body: form
     });
-    // console.log("res:", res)
-    if (!res.ok) return { message: res.statusText }
+    if (!res.ok) return {
+        message: `${res.status}: ${res.statusText}`,
+        errors: {
+            fieldErrors: {}
+        },
+        inputs: formObject,
+    }
 
     redirect("/profile")
 }
@@ -128,11 +120,9 @@ export async function editActivity(initialState: FormState, formData: FormData):
     }
 
     const result = ActivitySchema.safeParse(formObject)
-    if (!result.success) {
-        return {
-            errors: z.flattenError(result.error),
-            inputs: formObject
-        }
+    if (!result.success) return {
+        errors: z.flattenError(result.error),
+        inputs: formObject,
     }
     // console.log("result.data:", result.data)
 
@@ -158,13 +148,18 @@ export async function editActivity(initialState: FormState, formData: FormData):
         },
         body: form
     });
-    console.log("res:", res)
-    if (!res.ok) return { message: res.statusText }
+    if (!res.ok) return {
+        message: `${res.status}: ${res.statusText}`,
+        errors: {
+            fieldErrors: {}
+        },
+        inputs: formObject,
+    }
 
     redirect("/profile")
 }
 
-export async function deleteActivity(activityId: number) {
+export async function deleteActivity(activityId: number, initialState: FormState): Promise<FormState> {
     console.log("deleteActivity called")
 
     const token = await getToken()
@@ -175,7 +170,7 @@ export async function deleteActivity(activityId: number) {
             "Authorization": `Bearer ${token}`
         },
     });
-    if (!res.ok) return 
+    if (!res.ok) return { message: `${res.status}: ${res.statusText}` }
 
     redirect("/profile")
 }

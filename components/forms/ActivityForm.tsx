@@ -2,8 +2,8 @@
 
 import { useActionState } from "react";
 import Form from "next/form";
-import type { Activity } from "@/app/api/types";
-import { createActivity, editActivity, FormState } from "@/app/api/actions";
+import type { Activity, FormState } from "@/app/api/types";
+import { createActivity, editActivity } from "@/app/api/actions";
 import Button from "../buttons/Button";
 import InputWrapper from "./InputWrapper";
 
@@ -30,6 +30,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
             file: "",
         }
     }
+
     const [state, formAction, pending] = useActionState(edit ? editActivity : createActivity, initialState)
     console.log("state:", state)
 

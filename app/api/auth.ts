@@ -2,10 +2,24 @@
 
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { SignupSchema } from "./schemas";
+import * as z from "zod";
+import { LoginSchema, SignupSchema } from "./schemas";
+import type { FormState } from "./types";
 
-export async function authLogin(formData: FormData) {
+export async function authLogin(initialState: FormState, formData: FormData): Promise<FormState> {
     console.log("authLogin called")
+
+    const formObject = {
+        username: formData.get("username"),
+        password: formData.get("password"),
+    }
+
+    const result = LoginSchema.safeParse(formObject)
+    if (!result.success) return {
+        errors: z.flattenError(result.error),
+        inputs: formObject,
+    }
+    // console.log("result.data:", result.data)
 
     const res = await fetch("http://localhost:4000/auth/token", {
         method: "POST",
@@ -17,37 +31,44 @@ export async function authLogin(formData: FormData) {
             password: formData.get("password"),
         })
     });
-    if (!res.ok) return
-    // console.log("res:", res)
+    if (!res.ok) return {
+        message: "Forkert brugernavn/adgangskode",
+        errors: {
+            fieldErrors: {}
+        },
+        inputs: formObject,
+    }
+
     const data = await res.json();
     console.log("data:", data)
 
     const cookieStore = await cookies()
-    cookieStore.set("LD_TOKEN", data.token, { maxAge: data.validUntil })
-    cookieStore.set("LD_USER_ID", data.userId, { maxAge: data.validUntil })
+    cookieStore.set("LD_TOKEN", data.token, { expires: data.validUntil })
+    cookieStore.set("LD_USER_ID", data.userId, { expires: data.validUntil })
+    cookieStore.set("LD_USER_ROLE", data.role, { expires: data.validUntil })
 
     redirect("/")
 }
 
 
-export async function authSignup(formData: FormData) {
+export async function authSignup(initialState: FormState, formData: FormData): Promise<FormState> {
     console.log("authSignup called")
 
-    if (formData.get("passwordConfirm") !== formData.get("password")) return
-
-    const result = SignupSchema.safeParse({
-        username: formData.get("username"),
-        password: formData.get("password"),
+    const formObject = {
         firstname: formData.get("firstname"),
         lastname: formData.get("lastname"),
         age: Number(formData.get("age")),
-    })
-    if (!result.success) {
-        console.log("result.error:", result.error)
-        return
-    } else {
-        console.log("result.data:", result.data)
+        username: formData.get("username"),
+        password: formData.get("password"),
+        passwordConfirm: formData.get("passwordConfirm"),
     }
+
+    const result = SignupSchema.safeParse(formObject)
+    if (!result.success) return {
+        errors: z.flattenError(result.error),
+        inputs: formObject,
+    }
+    // console.log("result.data:", result.data)
 
     const res = await fetch("http://localhost:4000/api/v1/users", {
         method: "POST",
@@ -56,8 +77,14 @@ export async function authSignup(formData: FormData) {
         },
         body: `username=${result.data.username}&password=${result.data.password}&firstname=${result.data.firstname}&lastname=${result.data.lastname}&age=${result.data.age}&role=default`,
     });
-    if (!res.ok) return
-    // console.log("res:", res)
+    if (!res.ok) return {
+        message: `${res.status}: ${res.statusText}`,
+        errors: {
+            fieldErrors: {}
+        },
+        inputs: formObject,
+    }
+
     const data = await res.json();
     console.log("data:", data)
 

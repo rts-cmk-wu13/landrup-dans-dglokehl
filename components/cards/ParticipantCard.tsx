@@ -1,5 +1,5 @@
-import type { User } from "@/app/api/types"
 import { FaUserLarge } from "react-icons/fa6";
+import type { User } from "@/app/api/types"
 
 type ParticipantCardProps = {
     user: User;

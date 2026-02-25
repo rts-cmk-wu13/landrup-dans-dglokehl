@@ -1,14 +1,14 @@
 import Link from "next/link";
 import type { Activity } from "@/app/api/types"
-import ProfileActivityCard from "../cards/ProfileActivityCard"
 import { FaSquarePlus } from "react-icons/fa6";
+import ProfileActivityCard from "../cards/ProfileActivityCard"
 
 type InstructorActivitiesSectionProps = {
-    userActivities: Activity[];
+    activities: Activity[];
     className?: string;
 }
 
-export default function InstructorActivitiesSection({ userActivities, className }: InstructorActivitiesSectionProps) {
+export default function InstructorActivitiesSection({ activities, className }: InstructorActivitiesSectionProps) {
     return (
         <section className={`space-y-4 ${className ? className : ""}`}>
             <div className="flex justify-between items-end">
@@ -17,7 +17,7 @@ export default function InstructorActivitiesSection({ userActivities, className 
                     <FaSquarePlus className="size-9 text-app-white hover-75" />
                 </Link>
             </div>
-            {userActivities.map((item, i: number) => <ProfileActivityCard activity={item} role="instructor" key={i} />)}
+            {activities.map((item, i: number) => <ProfileActivityCard activity={item} instructor key={i} />)}
         </section>
     )
 }

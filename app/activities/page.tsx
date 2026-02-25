@@ -20,7 +20,7 @@ export default async function ActivitiesPage() {
                 <section className="space-y-6">
                     <h1 className="text-4xl">Aktiviteter</h1>
                     {activities.map((item: any, i: number) => (
-                        <ActivityCard data={item} key={i} />
+                        <ActivityCard activity={item} key={i} />
                     ))}
                 </section>
             </Main>

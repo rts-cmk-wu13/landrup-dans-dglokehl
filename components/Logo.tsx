@@ -1,7 +1,6 @@
 import Image from "next/image"
 
 type LogoProps = {
-    children?: React.ReactNode;
     className?: string;
 }
 

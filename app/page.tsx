@@ -43,7 +43,7 @@ export default async function HomePage() {
                     </form>
                 </section>
 
-                {testimonials && <TestimonialGallery data={testimonials} className="px-0!" />}
+                {testimonials && <TestimonialGallery testimonials={testimonials} className="px-0!" />}
 
                 <section>
                     <h2 className="mb-8 text-4xl">Kontakt os</h2>

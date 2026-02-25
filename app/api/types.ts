@@ -41,3 +41,11 @@ export type Activity = {
 export interface UserProfile extends User {
     activities: Activity[];
 }
+
+
+
+export type FormState = {
+    message?: string;
+    errors?: any
+    inputs?: any
+}
