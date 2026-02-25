@@ -18,6 +18,12 @@ export default function InstructorActivitiesSection({ activities, className }: I
                 </Link>
             </div>
             {activities.map((item, i: number) => <ProfileActivityCard activity={item} instructor key={i} />)}
+            {activities.length < 1 && (
+                <div className="space-y-1">
+                    <p>Du har ikke nogle hold.</p>
+                    <Link href="/profile/activities/new" className="underline hover-75">Lav et nyt hold</Link>
+                </div>
+            )}
         </section>
     )
 }

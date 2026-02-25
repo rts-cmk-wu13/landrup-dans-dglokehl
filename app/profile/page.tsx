@@ -26,8 +26,8 @@ export default async function ProfilePage() {
         <>
             <ProfileHeader user={user} />
             <Main>
-                {user.role === "default" && user.activities.length > 0 && <UserActivitiesSection activities={user.activities} />}
-                {user.role === "instructor" && instructorActivities.length > 0 && <InstructorActivitiesSection activities={instructorActivities} />}
+                {user.role === "default" && <UserActivitiesSection activities={user.activities} />}
+                {user.role === "instructor" && <InstructorActivitiesSection activities={instructorActivities} />}
             </Main>
         </>
     )

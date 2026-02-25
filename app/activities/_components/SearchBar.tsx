@@ -4,20 +4,19 @@ import { useState } from "react";
 import { LuSearch } from "react-icons/lu";
 
 type SearchBarProps = {
+    query?: string;
     className?: string;
 }
 
-export default function SearchBar({ className }: SearchBarProps) {
-    const [open, setOpen] = useState(false);
+export default function SearchBar({ query, className }: SearchBarProps) {
+    const [open, setOpen] = useState(query ? true : false);
 
     const submitSearch = (e: React.SubmitEvent<HTMLFormElement>) => {
-        const query = e.currentTarget.q.value
-        if (!query) {
+        const q = e.currentTarget.q.value.trim()
+        if (!q) {
             e.preventDefault()
             setOpen(false)
-            return
         }
-        console.log("query:", query)
     }
 
     return (
@@ -32,7 +31,8 @@ export default function SearchBar({ className }: SearchBarProps) {
                     <input
                         type="search"
                         name="q" id="q"
-                        autoFocus
+                        autoFocus={query ? false : true}
+                        defaultValue={query ? query : ""}
                         className="form-input pr-11! bg-[#C4C4C4]/30! text-app-white! rounded-xl rounded-br-none"
                     />
                 </form>
