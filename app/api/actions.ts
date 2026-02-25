@@ -56,24 +56,31 @@ export async function removeUserFromActivity(activityId: number) {
 export type FormState = {
   errors?: any
   message?: string;
+  inputs?: any
 }
 
 export async function createActivity(initialState: FormState, formData: FormData): Promise<FormState> {
     console.log("createActivity called")
+    console.log("initialState:", initialState)
 
-    const result = ActivitySchema.safeParse({
+    const formObject = {
         name: formData.get("name"),
         description: formData.get("description"),
         weekday: formData.get("weekday"),
         time: formData.get("time"),
-        minAge: Number(formData.get("minAge")),
-        maxAge: Number(formData.get("maxAge")),
+        minAge: formData.get("minAge") === "" ? "" : Number(formData.get("minAge")),
+        maxAge: formData.get("maxAge") === "" ? "" : Number(formData.get("maxAge")),
         instructorId: formData.get("instructorId"),
-        maxParticipants: Number(formData.get("maxParticipants")),
+        maxParticipants: formData.get("maxParticipants") === "" ? "" : Number(formData.get("maxParticipants")),
         file: formData.get("file"),
-    })
+    }
+
+    const result = ActivitySchema.safeParse(formObject)
     if (!result.success) {
-        return { errors: z.flattenError(result.error) }
+        return {
+            errors: z.flattenError(result.error),
+            inputs: formObject
+        }
     }
     // console.log("result.data:", result.data)
 

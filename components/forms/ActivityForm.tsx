@@ -16,10 +16,16 @@ const initialState: FormState = {
     errors: {
         fieldErrors: {}
     },
+    inputs: {}
 }
 export default function ActivityForm({ edit, className }: ActivityFormProps) {
     const [state, formAction, pending] = useActionState(edit ? editActivity : createActivity, initialState)
     console.log("state:", state)
+
+    const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+    }
+
     return (
         <Form
             action={formAction}
@@ -31,24 +37,24 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                     type="text"
                     name="name" id="name"
                     placeholder="Holdnavn"
-                    defaultValue={edit ? edit.name : ""}
+                    defaultValue={edit ? edit.name : state.inputs.name ? state.inputs.name : ""}
                     className="form-input"
                 />
             </InputWrapper>
-            <InputWrapper className="col-span-2">
+            <InputWrapper className="col-span-2" error={state.errors.fieldErrors.description ? state.errors.fieldErrors.description[0] : ""}>
                 <textarea
                     name="description" id="description"
                     placeholder="Beskrivelse"
-                    defaultValue={edit ? edit.description : ""}
+                    defaultValue={edit ? edit.description : state.inputs.description ? state.inputs.description : ""}
                     className="form-input py-3 h-32 col-span-2 resize-none"
                 ></textarea>
             </InputWrapper>
             
 
-            <InputWrapper>
+            <InputWrapper error={state.errors.fieldErrors.weekday ? state.errors.fieldErrors.weekday[0] : ""}>
                 <select
                     name="weekday" id="weekday"
-                    defaultValue={edit ? edit.weekday : ""}
+                    defaultValue={edit ? edit.weekday : state.inputs.weekday ? state.inputs.weekday : ""}
                     className="form-input"
                 >
                     <option value="" disabled>Ugedag</option>
@@ -61,39 +67,39 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                     <option value="søndag">Søndag</option>
                 </select>
             </InputWrapper>
-            <InputWrapper>
+            <InputWrapper error={state.errors.fieldErrors.time ? state.errors.fieldErrors.time[0] : ""}>
                 <input
                     type="text"
                     name="time" id="time"
                     placeholder="Tidspunkt"
-                    defaultValue={edit ? edit.time : ""}
+                    defaultValue={edit ? edit.time : state.inputs.time ? state.inputs.time : ""}
                     className="form-input"
                 />
             </InputWrapper>
 
-            <InputWrapper>
+            <InputWrapper error={state.errors.fieldErrors.minAge ? state.errors.fieldErrors.minAge[0] : ""}>
                 <input
                     type="number"
                     name="minAge" id="minAge"
                     placeholder="Alder (min.)"
-                    defaultValue={edit ? edit.minAge : ""}
+                    defaultValue={edit ? edit.minAge : state.inputs.minAge ? state.inputs.minAge : ""}
                     className="form-input"
                 />
             </InputWrapper>
-            <InputWrapper>
+            <InputWrapper error={state.errors.fieldErrors.maxAge ? state.errors.fieldErrors.maxAge[0] : ""}>
                 <input
                     type="number"
                     name="maxAge" id="maxAge"
                     placeholder="Alder (max.)"
-                    defaultValue={edit ? edit.maxAge : ""}
+                    defaultValue={edit ? edit.maxAge : state.inputs.maxAge ? state.inputs.maxAge : ""}
                     className="form-input"
                 />
             </InputWrapper>
 
-            <InputWrapper>
+            <InputWrapper error={state.errors.fieldErrors.instructorId ? state.errors.fieldErrors.instructorId[0] : ""}>
                 <select
                     name="instructorId" id="instructorId"
-                    defaultValue={edit ? edit.instructorId : ""}
+                    defaultValue={edit ? edit.instructorId : state.inputs.instructorId ? state.inputs.instructorId : ""}
                     className="form-input"
                 >
                     <option value="" disabled>Instruktør</option>
@@ -103,17 +109,17 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                     <option value="4">instructor4</option>
                 </select>
             </InputWrapper>
-            <InputWrapper>
+            <InputWrapper error={state.errors.fieldErrors.maxParticipants ? state.errors.fieldErrors.maxParticipants[0] : ""}>
                 <input
                     type="number"
                     name="maxParticipants" id="maxParticipants"
                     placeholder="Deltagere (max.)"
-                    defaultValue={edit ? edit.maxParticipants : ""}
+                    defaultValue={edit ? edit.maxParticipants : state.inputs.maxParticipants ? state.inputs.maxParticipants : ""}
                     className="form-input"
                 />
             </InputWrapper>
 
-            <InputWrapper className="space-y-2 col-span-2">
+            <InputWrapper className="space-y-2 col-span-2" error={state.errors.fieldErrors.file ? state.errors.fieldErrors.file[0] : ""}>
                 <p className="text-lg">Billede:</p>
                 <input
                     type="file"
@@ -127,7 +133,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                 <input type="hidden" name="activityId" id="activityId" value={edit.id} />
             )}
 
-            <Button className="px-18 justify-self-center col-span-2">
+            <Button className={`px-18 justify-self-center col-span-2 ${pending && "opacity-50 pointer-events-none"}`}>
                 {edit ? "Ret hold" : "Opret hold"}
             </Button>
         </Form>
