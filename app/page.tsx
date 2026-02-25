@@ -1,13 +1,14 @@
 import Image from "next/image"
+import { fetchDefault } from "./api/fetches"
 
 import Main from "@/components/layout/Main"
 import Button from "@/components/buttons/Button"
+import NewsletterForm from "@/components/forms/NewsletterForm"
 
 import Hero from "./_components/Hero"
 import { holdtyper } from "./_components/holdtyper"
 import TestimonialGallery from "./_components/TestimonialGallery"
 
-import { fetchDefault } from "./api/fetches"
 
 export default async function HomePage() {
     const testimonials = await fetchDefault("http://localhost:4000/api/v1/testimonials")
@@ -37,10 +38,7 @@ export default async function HomePage() {
                 <section>
                     <h2 className="text-4xl">Nyhedsbrev</h2>
                     <p className="mt-5 text-lg">Få direkte besked når vi har sæsonstart eller afholder arrangementer.</p>
-                    <form action="" className="mt-4 w-full flex items-center gap-4">
-                        <input type="email" name="email" id="email" placeholder="Email" className="form-input" />
-                        <Button className="px-3">Tilmeld</Button>
-                    </form>
+                    <NewsletterForm className="mt-4" />
                 </section>
 
                 {testimonials && <TestimonialGallery testimonials={testimonials} className="px-0!" />}

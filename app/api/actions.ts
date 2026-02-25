@@ -4,8 +4,59 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import * as z from "zod";
 import { getToken, getUserId } from "@/utils/cookies";
-import { ActivitySchema } from "./schemas";
+import { ActivitySchema, NewsletterSchema } from "./schemas";
 import type { FormState } from "./types";
+
+
+// --- NEWSLETTER --- //
+
+export async function registerNewsletter(initialState: FormState, formData: FormData): Promise<FormState> {
+    console.log("registerNewsletter called")
+
+    const formObject = {
+        email: formData.get("email")
+    }
+
+    const result = NewsletterSchema.safeParse(formObject)
+    if (!result.success) return {
+        message: "Indtast en gyldig email",
+        errors: z.flattenError(result.error),
+        inputs: formObject,
+    }
+    // console.log("result.data:", result.data)
+
+    const res = await fetch("http://localhost:4000/api/v1/newsletter", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formObject)
+    });
+    if (!res.ok) return {
+        message: `${res.status}: ${res.statusText}`,
+        errors: {
+            fieldErrors: {}
+        },
+        inputs: formObject,
+    }
+
+    const data = await res.json();
+    console.log("data:", data)
+
+    return {
+        message: "Tak for din tilmelding",
+        errors: {
+            fieldErrors: {
+                email: []
+            }
+        },
+        inputs: {
+            email: "",
+        }
+    }
+}
+
+
 
 // --- ADD/REMOVE USER FROM ACTIVITY --- //
 

@@ -1,9 +1,13 @@
 import * as z from "zod";
 
 
+export const NewsletterSchema = z.object({
+    email: z.email({ error: "Indtast en gyldig email" }),
+});
+
 export const LoginSchema = z.object({
     username: z.string({ error: "Indtast dit brugernavn" }).min(1, { error: "Indtast dit brugernavn" }),
-    password: z.string({ error: "Indtast din adgangskode" }).min(1, { error: "Indtast din adgangskode" })
+    password: z.string({ error: "Indtast din adgangskode" }).min(1, { error: "Indtast din adgangskode" }),
 });
 
 export const SignupSchema = z.object({
