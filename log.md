@@ -29,4 +29,4 @@ Eftermiddag - 15:38
 ## Dag 5 - 26/2
 
 Morgen - 8:50 
-Eftermiddag - (tidspunkt)
+Eftermiddag - 10:58 (aflevering)
