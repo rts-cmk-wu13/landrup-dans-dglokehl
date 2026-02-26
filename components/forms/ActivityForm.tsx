@@ -91,7 +91,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                     name="minAge" id="minAge"
                     placeholder="Alder (min.)"
                     defaultValue={state.inputs.minAge ? state.inputs.minAge : ""}
-                    className="form-input"
+                    className="form-input-number"
                 />
             </InputWrapper>
             <InputWrapper error={state.errors.fieldErrors.maxAge ? state.errors.fieldErrors.maxAge[0] : ""}>
@@ -100,7 +100,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                     name="maxAge" id="maxAge"
                     placeholder="Alder (max.)"
                     defaultValue={state.inputs.maxAge ? state.inputs.maxAge : ""}
-                    className="form-input"
+                    className="form-input-number"
                 />
             </InputWrapper>
 
@@ -123,7 +123,7 @@ export default function ActivityForm({ edit, className }: ActivityFormProps) {
                     name="maxParticipants" id="maxParticipants"
                     placeholder="Deltagere (max.)"
                     defaultValue={state.inputs.maxParticipants ? state.inputs.maxParticipants : ""}
-                    className="form-input"
+                    className="form-input-number"
                 />
             </InputWrapper>
 

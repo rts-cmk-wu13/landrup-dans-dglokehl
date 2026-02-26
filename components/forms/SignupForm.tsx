@@ -69,7 +69,7 @@ export default function SignupForm({ className }: SignupFormProps) {
                     name="age" id="age"
                     placeholder="Alder"
                     defaultValue={state.inputs.age ? state.inputs.age : ""}
-                    className="form-input"
+                    className="form-input-number"
                 />
             </InputWrapper>
             <InputWrapper error={state.errors.fieldErrors.password ? state.errors.fieldErrors.password[0] : ""}>

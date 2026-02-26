@@ -41,6 +41,10 @@
     @apply px-3 h-12 w-full bg-app-white text-lg text-app-black placeholder:text-app-grey-light focus:outline-0;
 }
 
+@utility form-input-number {
+    @apply form-input [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none;
+}
+
 
 /* --- HOVER UTILITIES --- */
 
