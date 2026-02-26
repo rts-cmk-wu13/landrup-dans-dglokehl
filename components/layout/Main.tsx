@@ -5,7 +5,7 @@ type MainProps = {
 
 export default function Main({ children, className }: MainProps) {
     return (
-        <main className={`mb-footer p-default ${className ? className : ""}`}>
+        <main className={`py-default *:px-default ${className ? className : ""}`}>
             {children}
         </main>
     )

@@ -6,27 +6,27 @@ Udfyld hver dag. Det er vigtigt at du overholder denne logbog - du kan risikere 
 Skriv tidspunkt for dit commit ud for hver dag, både morgen og aften.  
 Husk, at du ikke må arbejde på din opgave mellem kl. 16:00 og kl. 8:00.
 
-## Dag 1
+## Dag 1 - 21/2
 
-Morgen - 13:53
-Eftermiddag - (tidspunkt)
+Morgen - ~12:30 (committede først 13:54)
+Eftermiddag - 15:32
 
-## Dag 2
+## Dag 2 - 23/2
 
-Morgen - (tidspunkt)  
-Eftermiddag - (tidspunkt)
+Morgen - 8:45
+Eftermiddag - 15:55
 
-## Dag 3
+## Dag 3 - 24/2
 
-Morgen - (tidspunkt)  
-Eftermiddag - (tidspunkt)
+Morgen - 9:02
+Eftermiddag - 15:57
 
-## Dag 4
+## Dag 4 - 25/2
 
-Morgen - (tidspunkt)  
-Eftermiddag - (tidspunkt)
+Morgen - 9:45
+Eftermiddag - 15:38
 
-## Dag 5
+## Dag 5 - 26/2
 
-Morgen - (tidspunkt)  
-Eftermiddag - (tidspunkt)
+Morgen - 8:50 
+Eftermiddag - 10:58 (aflevering)
